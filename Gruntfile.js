@@ -1,4 +1,4 @@
-/* jshint strict: false, undef: false, camelcase: false */
+/* jshint strict: false, undef: false */
 
 
 /**
@@ -33,7 +33,10 @@ module.exports = function(grunt)
 	// The name of the final, compiled CSS file
 	var cssFileName = pkg.name + '.css';
 
-	// Our task definitions
+	/**
+	 * Task definitions
+	 * @type {Object}
+	 */
 	var taskConfig = {
 
 		// make-like clean action
@@ -107,9 +110,8 @@ module.exports = function(grunt)
 			}
 		},
 
+		// Build our less files while including all of bootstrap
 		less: {
-
-			// Build our less files while including all of bootstrap
 			build: {
 				options: {
 					strictMath: true,
@@ -129,7 +131,10 @@ module.exports = function(grunt)
 			build: {
 				options: {
 					data: {
-						scripts: _.union(grunt.file.expand(config.vendor.js, config.app.js)),
+						scripts: _.union(
+							grunt.file.expand(config.vendor.js),
+							grunt.file.expand(config.app.js)
+						),
 						assetPath: config.buildDir,
 						cssFileName: cssFileName
 					}
@@ -137,20 +142,54 @@ module.exports = function(grunt)
 				files: [
 					{
 						src: config.app.indicies,
-						// We write index.html to the root dir because of github.io
 						dest: '.',
 						expand: true,
 						flatten: true
 					}
 				]
 			}
-		}
+		},
 
+		/**
+		 * A custom 'watch' configuration because it tends to be more complex
+		 * than the others and we have to rename the task below.
+		 */
+		watch: {
+			options: {
+				livereload: config.watchPort,
+				debounceDelay: 250
+			},
+			gruntfile: {
+				files: 'Gruntfile.js',
+				tasks: ['jshint:gruntfile']
+			},
+			js: {
+				files: config.app.js,
+				tasks: ['jshint', 'gjslint', 'copy:build_js']
+			},
+			less: {
+				files: config.app.less,
+				tasks: ['less:build']
+			},
+			indicies: {
+				files: config.app.indicies,
+				tasks: ['template:build']
+			},
+
+			build: {
+				options: {
+					atBegin: true
+				},
+				tasks: ['build'],
+				files: '.'
+			}
+		}
 	};
 
 	// init grunt
 	grunt.initConfig(_.extend(taskConfig, config));
 
+	// The bread and butter of the config
 	grunt.registerTask('build', [
 		'clean:build',
 		'jshint',
