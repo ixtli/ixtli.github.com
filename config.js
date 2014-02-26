@@ -3,6 +3,8 @@ module.exports = {
 
 	buildDir: 'build/',
 
+	fontDir: 'fonts/',
+
 	vendorRoot: 'bower_components',
 
 	watchPort: 1337,
@@ -24,7 +26,12 @@ module.exports = {
 
 	vendor: {
 
-		js: ['bower_components/bootstrap/transition.js']
+		js: [
+			'bower_components/bootstrap/js/transition.js',
+			'bower_components/d3/d3.js'
+		],
+
+		fonts: ['bower_components/bootstrap/dist/fonts/*']
 
 	}
 };

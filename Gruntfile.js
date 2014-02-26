@@ -14,6 +14,7 @@ module.exports = function(grunt)
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-template');
 	grunt.loadNpmTasks('grunt-gjslint');
@@ -47,7 +48,8 @@ module.exports = function(grunt)
 			},
 
 			build: [
-				config.buildDir
+				config.buildDir,
+				config.fontDir
 			]
 		},
 
@@ -71,6 +73,18 @@ module.exports = function(grunt)
 					{
 						src: config.app.js,
 						dest: config.buildDir,
+						expand: true,
+						flatten: true
+					}
+				]
+			},
+
+			// We need bootstrap fonts, sadly
+			build_fonts: {
+				files: [
+					{
+						src: config.vendor.fonts,
+						dest: config.fontDir,
 						expand: true,
 						flatten: true
 					}
@@ -131,11 +145,8 @@ module.exports = function(grunt)
 			build: {
 				options: {
 					data: {
-						scripts: _.union(
-							grunt.file.expand(config.vendor.js),
-							grunt.file.expand(config.app.js)
-						),
-						assetPath: config.buildDir,
+						scripts: grunt.file.expand(config.app.js),
+						buildPath: config.buildDir,
 						cssFileName: cssFileName
 					}
 				},
@@ -154,9 +165,9 @@ module.exports = function(grunt)
 		 * A custom 'watch' configuration because it tends to be more complex
 		 * than the others and we have to rename the task below.
 		 */
-		watch: {
+		customWatch: {
 			options: {
-				livereload: config.watchPort,
+				livereload: true,
 				debounceDelay: 250
 			},
 			gruntfile: {
@@ -174,20 +185,29 @@ module.exports = function(grunt)
 			indicies: {
 				files: config.app.indicies,
 				tasks: ['template:build']
-			},
+			}
 
-			build: {
+		},
+
+		connect: {
+			server: {
 				options: {
-					atBegin: true
-				},
-				tasks: ['build'],
-				files: '.'
+					port: config.watchPort,
+					hostname: 'localhost',
+					livereload: true
+				}
 			}
 		}
 	};
 
 	// init grunt
 	grunt.initConfig(_.extend(taskConfig, config));
+
+	// We want to inject some things in before watch happens, so rename it
+	grunt.renameTask('watch', 'customWatch');
+
+	// Define our custom watch task
+	grunt.registerTask('watch', ['connect', 'build', 'customWatch']);
 
 	// The bread and butter of the config
 	grunt.registerTask('build', [
@@ -197,6 +217,7 @@ module.exports = function(grunt)
 		'less:build',
 		'copy:build_vendor_js',
 		'copy:build_js',
+		'copy:build_fonts',
 		'template:build'
 	]);
 
