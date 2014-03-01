@@ -20,7 +20,9 @@ module.exports = {
 
 		templates: ['partials/*.html'],
 
-		indicies: ['indicies/index.html']
+		indicies: ['indicies/index.html'],
+
+		data: ['data/*']
 
 	},
 

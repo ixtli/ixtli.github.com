@@ -19,14 +19,32 @@
 		<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 	<![endif]-->
 
-	<h1>Hey this is me. Be right there.<span class="glyphicon glyphicon-heart"></span></h1>
+	<div id="tlc" class ="container-fluid">
+		<div class="row">
+			<div id="meta">
+				<h1>Christopher Galardi</h1>
+				<address>
+					506 East 13th Street, <abbr title="Apartment">Apt</abbr> #9<br>
+					New York, New York 10009<br>
+				</address>
+				<address>
+					<abbr title="Cell Phone">P:</abbr> (203)807-3772<br>
+					<abbr title="Personal E-Mail">E:</abbr>
+					<a href="mailto:#">christophergalardi@gmail.com</a>
+				</address>
+			</div>
+		</div>
+	</div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 	<script src="<%= buildPath %>transition.js"></script>
 	<script src="<%= buildPath %>d3.js"></script>
+	<script src="<%= buildPath %>lodash.js"></script>
 	<% scripts.forEach( function ( file ) { %>
 	<script src="<%= file %>"></script>
 	<% }); %>
+
+
 </body>
 
 </html>

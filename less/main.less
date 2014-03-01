@@ -1,6 +1,45 @@
 
+@import "../bower_components/bootstrap/less/bootstrap.less";
+
+@web-top-padding: 25px;
+
+// This defines how we use bootstrap grid
+.main-column() {
+	.make-xs-column(12);
+	.make-md-column(10);
+	.make-md-column-offset(1);
+}
+
 html
 {
 	width: 100%;
 	height: 100%;
+}
+
+// All top level rows should have this style
+div.container-fluid > div.row > div
+{
+	.main-column();
+}
+
+div#meta
+{
+	margin-top: @web-top-padding;
+
+	h1
+	{
+		float: left;
+		margin: 0;
+	}
+
+	address
+	{
+		float: left;
+		margin-left: 20px;
+	}
+}
+
+div#experience
+{
+
 }

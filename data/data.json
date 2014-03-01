@@ -1,0 +1,48 @@
+{
+			"Experience": {
+			"locations": [
+				{
+					"name": "Sojo Studios",
+					"start": [2011, 5],
+					"tasks": [
+						{
+							"desc": "AI System for a large Facebook citybuilder",
+							"tools": ["as3"]
+						},
+						{
+							"desc": "Full suite of game design and maintenance tools for two large scale Facebook games",
+							"tools": ["java", "javascript", "css3", "html5", "bootstrap", "jquery", "d3", "sass"]
+						},
+						{
+							"desc": "User design and implementation for a large Facebook slots game",
+							"tools": ["as3", "flash"]
+						},
+						{
+							"desc": "Design and implementation of an \"endless runner\" iOS game written using no 3rd party libraries",
+							"tools": ["c++", "objc", "opengles2", "ios"]
+						},
+						{
+							"desc": "Suite of game design tools for endless runner game",
+							"tools": ["javascript", "css3", "html5", "jquery"]
+						},
+						{
+							"desc": "Large scale build system for curated ad content provider",
+							"tools": ["javascript", "css3", "html5", "grunt", "closure", "jquery", "lodash", "bootstrap", "less"]
+						}
+					]
+				}
+			]
+		},
+		"Education": {
+
+		},
+		"Projects": {
+
+		},
+		"Languages": {
+
+		},
+		"Tools": {
+
+		}
+}

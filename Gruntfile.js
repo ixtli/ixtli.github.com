@@ -89,6 +89,17 @@ module.exports = function(grunt)
 						flatten: true
 					}
 				]
+			},
+
+			build_data: {
+				files: [
+					{
+						src: config.app.data,
+						dest: config.buildDir,
+						expand: true,
+						flatten: true
+					}
+				]
 			}
 		},
 
@@ -167,8 +178,7 @@ module.exports = function(grunt)
 		 */
 		customWatch: {
 			options: {
-				livereload: true,
-				debounceDelay: 250
+				livereload: true
 			},
 			gruntfile: {
 				files: 'Gruntfile.js',
@@ -185,8 +195,11 @@ module.exports = function(grunt)
 			indicies: {
 				files: config.app.indicies,
 				tasks: ['template:build']
+			},
+			data: {
+				files: config.app.data,
+				tasks: ['copy:build_data']
 			}
-
 		},
 
 		connect: {
@@ -218,6 +231,7 @@ module.exports = function(grunt)
 		'copy:build_vendor_js',
 		'copy:build_js',
 		'copy:build_fonts',
+		'copy:build_data',
 		'template:build'
 	]);
 
