@@ -28,7 +28,8 @@ module.exports = {
 
 		js: [
 			'bower_components/bootstrap/js/transition.js',
-			'bower_components/d3/d3.js'
+			'bower_components/d3/d3.js',
+			'bower_components/lodash/dist/lodash.js'
 		],
 
 		fonts: ['bower_components/bootstrap/dist/fonts/*']
